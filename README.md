@@ -1,4 +1,4 @@
-### Openfire Symfony Bundle
+# Openfire Symfony Bundle
 
 Bundle used to connect to Openfire REST API and perform common tasks.
 
@@ -12,11 +12,22 @@ By composer :
 }
 ```
 
+app/AppKernel.php :
+
+```
+$bundles = array(
+    new jean553\OpenfireBundle\OpenfireBundle()
+);
+```
+
 ## Use
 
 app/config/config.yml :
 
 ```
+parameters:
+    openfire_service: "jean553\OpenfireBundle\Services\OpenfireService"
+
 openfire:
     url: 'http://my-openfire-server:9090/plugins/restapi/v1'
     secret: 'abcdefghijklmnopqrst'
@@ -27,4 +38,13 @@ In controller :
 ```
 $service = $this->get('openfire.service');
 $service->createUser('username', 'password');
+```
+
+## Tests
+
+app/config/config_test.yml :
+
+```
+parameters:
+    openfire_service: "jean553\OpenfireBundle\Services\DummyOpenfireService"
 ```

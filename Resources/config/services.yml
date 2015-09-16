@@ -3,5 +3,5 @@ services:
         class: jean553\OpenfireBundle\Logic\OpenfireClient
         arguments: [%openfire_client_config%]
     openfire.service:
-        class: jean553\OpenfireBundle\Services\OpenfireService
+        class: "%openfire_service%"
         arguments: [@openfire.client]
