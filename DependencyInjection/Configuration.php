@@ -12,16 +12,12 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder();
-        $root = $builder->root('openfire_bundle');
+        $treeBuilder = new TreeBuilder();
+        $rootNode = $treeBuilder->root('openfire_bundle');
 
-        $root
+        $rootNode
             ->children()
                 ->scalarNode('url')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('port')
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()
@@ -31,6 +27,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
 
-        return $builder;
+        return $treeBuilder;
     }
 }
