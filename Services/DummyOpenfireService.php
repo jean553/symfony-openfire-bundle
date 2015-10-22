@@ -13,4 +13,14 @@ class DummyOpenfireService
         $password
     ) {
     }
+
+    /**
+     * @param string $chatRoomName
+     * @param string $ownerName
+     */
+    public function createChatRoom(
+        $chatRoomName,
+        $ownerName
+    ) {
+    }
 }
