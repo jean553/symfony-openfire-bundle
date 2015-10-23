@@ -14,8 +14,7 @@ class OpenfireService
     /**
      * @param OpenfireClient $client
      */
-    public function __construct(OpenfireClient $client)
-    {
+    public function __construct(OpenfireClient $client) {
         $this->client = $client;
     }
 
@@ -34,6 +33,29 @@ class OpenfireService
             array(
                 'username' => $username,
                 'password' => $password
+            )
+        );
+    }
+
+    /**
+     * @param string $chatRoomName
+     * @param string $ownerName
+     */
+    public function createChatRoom(
+        $chatRoomName,
+        $ownerName
+    ) {
+
+        $this->client->request(
+            'post',
+            '/chatrooms',
+            array(
+                'roomName' => $chatRoomName,
+                'naturalName' => $chatRoomName,
+                'description' => $chatRoomName,
+                'owners' => array(
+                    'owner' => $ownerName
+                )
             )
         );
     }
