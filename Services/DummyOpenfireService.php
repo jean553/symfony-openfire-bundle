@@ -23,4 +23,16 @@ class DummyOpenfireService
         $ownerName
     ) {
     }
+
+    /**
+     * @param string $chatRoomName
+     * @param string $role
+     * @param string $username
+     */
+    public function addUserInChatRoom(
+        $chatRoomName,
+        $role,
+        $username
+    ) {
+    }
 }

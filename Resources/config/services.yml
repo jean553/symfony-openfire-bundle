@@ -4,4 +4,4 @@ services:
         arguments: [%openfire_client_config%]
     openfire.service:
         class: "%openfire_service%"
-        arguments: [@openfire.client]
+        arguments: [@openfire.client, %openfire_client_config%]
