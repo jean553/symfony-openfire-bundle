@@ -14,8 +14,12 @@ class OpenfireService
     /**
      * @param OpenfireClient $client
      */
-    public function __construct(OpenfireClient $client) {
+    public function __construct(
+        OpenfireClient $client,
+        $config
+    ) {
         $this->client = $client;
+        $this->config = $config;
     }
 
     /**
@@ -46,6 +50,9 @@ class OpenfireService
         $ownerName
     ) {
 
+        $ownerInfos =
+            $ownerName.'@'.$this->config['servicename'].'.'.$this->config['servername'];
+
         $this->client->request(
             'post',
             '/chatrooms',
@@ -54,9 +61,27 @@ class OpenfireService
                 'naturalName' => $chatRoomName,
                 'description' => $chatRoomName,
                 'owners' => array(
-                    'owner' => $ownerName
+                    'owner' => $ownerInfos
                 )
             )
+        );
+    }
+
+    /**
+     * @param string $chatRoomName
+     * @param string $role
+     * @param string $username
+     */
+    public function addUserInChatRoom(
+        $chatRoomName,
+        $role,
+        $username
+    ) {
+
+        $this->client->request(
+            'post',
+            '/chatrooms/'.$chatRoomName.'/'.$role.'/'.$username,
+            array()
         );
     }
 }
