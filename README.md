@@ -39,6 +39,8 @@ In controller :
 $service = $this->get('openfire.service');
 $service->createUser('username', 'password');
 $service->createChatRoom('chat_room_name', 'username');
+
+$userJid = $service->getJid('username');
 ```
 
 ## Tests
