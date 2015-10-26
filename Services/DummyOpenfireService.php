@@ -35,4 +35,14 @@ class DummyOpenfireService
         $username
     ) {
     }
+
+    /**
+     * @param string $username Openfire username for the user
+     *
+     * @return string
+     */
+    public function getUserJID($username)
+    {
+        return $username.'@localhost';
+    }
 }
