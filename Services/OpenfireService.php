@@ -24,6 +24,24 @@ class OpenfireService
 
     /**
      * @param string $username
+     *
+     * @return json openfire user representation
+     */
+    public function searchUser($username)
+    {
+
+        return $this->client->request(
+            'get',
+            '/users?search='.$username,
+            array()
+        );
+    }
+
+    /**
+     * Create a new user with the given username
+     * if this user does not already exists
+     *
+     * @param string $username
      * @param string $password
      */
     public function createUser(
@@ -31,11 +49,33 @@ class OpenfireService
         $password
     ) {
 
+        if (!empty($this->searchUser($username))) {
+            return;
+        }
+
         $this->client->request(
             'post',
             '/users',
             array(
                 'username' => $username,
+                'password' => $password
+            )
+        );
+    }
+
+    /**
+     * @param string $username
+     * @param string $password
+     */
+    public function editUserPassword(
+        $username,
+        $password
+    ) {
+
+        $this->client->request(
+            'put',
+            '/users/'.$username,
+            array(
                 'password' => $password
             )
         );
@@ -69,6 +109,34 @@ class OpenfireService
 
     /**
      * @param string $chatRoomName
+     * @param string $ownerName
+     * @param string $serviceName
+     */
+    public function createChatRoomWithSpecificService(
+        $chatRoomName,
+        $ownerName,
+        $serviceName
+    ) {
+
+        $ownerInfos =
+            $ownerName.'@'.$serviceName.'.'.$this->config['servername'];
+
+        $this->client->request(
+            'post',
+            '/chatrooms?servicename='.$serviceName,
+            array(
+                'roomName' => $chatRoomName,
+                'naturalName' => $chatRoomName,
+                'description' => $chatRoomName,
+                'owners' => array(
+                    'owner' => $ownerInfos
+                )
+            )
+        );
+    }
+
+    /**
+     * @param string $chatRoomName
      * @param string $role
      * @param string $username
      */
@@ -81,6 +149,73 @@ class OpenfireService
         $this->client->request(
             'post',
             '/chatrooms/'.$chatRoomName.'/'.$role.'/'.$username,
+            array()
+        );
+    }
+
+    /**
+     * @param string $chatRoomName
+     * @param string $role
+     * @param string $username
+     * @param string $serviceName
+     */
+    public function addUserInChatRoomWithSpecificService(
+        $chatRoomName,
+        $role,
+        $username,
+        $serviceName
+    ) {
+
+        $this->client->request(
+            'post',
+            '/chatrooms/'.$chatRoomName.'/'.$role.'/'.$username.'?servicename='.$serviceName,
+            array()
+        );
+    }
+
+    /**
+     * @param string $chatRoomName
+     * @param string $role
+     * @param string $username
+     */
+    public function deleteUserInChatRoom(
+        $chatRoomName,
+        $role,
+        $username
+    ) {
+
+        $this->client->request(
+            'delete',
+            '/chatrooms/'.$chatRoomName.'/'.$role.'/'.$username,
+            array()
+        );
+    }
+
+    /**
+     * @param string $chatRoomName
+     */
+    public function deleteChatRoom($chatRoomName)
+    {
+
+        $this->client->request(
+            'delete',
+            '/chatrooms/'.$chatRoomName,
+            array()
+        );
+    }
+
+    /**
+     * @param string $chatRoomName
+     * @param string $serviceName
+     */
+    public function deleteChatRoomWithSpecificService(
+        $chatRoomName,
+        $serviceName
+    ) {
+
+        $this->client->request(
+            'delete',
+            '/chatrooms/'.$chatRoomName.'?servicename='.$serviceName,
             array()
         );
     }

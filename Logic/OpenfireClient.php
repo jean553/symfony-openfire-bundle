@@ -46,8 +46,19 @@ class OpenfireClient
 
         $body = json_encode($params);
 
+        // TODO: similar logic for each method, should be refactored
         switch($type)
         {
+            case 'get':
+
+                $result = 
+                    $this->client->get(
+                        $this->config['url'].$action,
+                        array(
+                            'headers' => $headers
+                        ) 
+                    );
+                break;
             case 'post':
                 $headers += ['Content-Type' => 'application/json'];
 
@@ -60,6 +71,32 @@ class OpenfireClient
                         ) 
                     );
                 break;
+            case 'put':
+                $headers += ['Content-Type' => 'application/json'];
+
+                $result = 
+                    $this->client->put(
+                        $this->config['url'].$action,
+                        array(
+                            'headers' => $headers,
+                            'body' => $body
+                        ) 
+                    );
+                break;
+            case 'delete':
+                $headers += ['Content-Type' => 'application/json'];
+
+                $result = 
+                    $this->client->delete(
+                        $this->config['url'].$action,
+                        array(
+                            'headers' => $headers,
+                            'body' => $body
+                        ) 
+                    );
+                break;
         }
+
+        return $result->json();
     }
 }
