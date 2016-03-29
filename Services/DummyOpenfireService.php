@@ -59,11 +59,13 @@ class DummyOpenfireService
     }
 
     /**
+     * @param integer $chatRoomId
      * @param string $chatRoomName
      * @param string $ownerName
      * @param string $serviceName
      */
     public function createChatRoomWithSpecificService(
+        $chatRoomId,
         $chatRoomName,
         $ownerName,
         $serviceName
@@ -108,6 +110,83 @@ class DummyOpenfireService
      */
     public function deleteChatRoomWithSpecificService(
         $chatRoomName,
+        $serviceName
+    ) {
+    }
+
+    /**
+     * @param array $idsAndServices
+     */
+    public function deleteChatRooms(array $idsAndServices)
+    {
+    }
+
+    /**
+     * @param string $chatRoomId
+     * @param string $chatRoomName
+     */
+    public function putChatRoomName(
+        $chatRoomId,
+        $chatRoomName
+    ) {
+    }
+
+    /**
+     * @param integer $chatRoomId
+     * @param string $chatRoomName
+     * @param array $membersIds
+     * @param string $ownerName
+     */
+    public function putChatRoom(
+        $chatRoomId,
+        $chatRoomName,
+        $membersIds,
+        $ownerName
+    ) {
+    }
+
+    /**
+     * @param integer $chatRoomId
+     * @param string $chatRoomName
+     * @param array $membersIds
+     * @param string $ownerName
+     * @param string $serviceName
+     */
+    public function putChatRoomWithSpecificService(
+        $chatRoomId,
+        $chatRoomName,
+        $membersIds,
+        $ownerName,
+        $serviceName
+    ) {
+    }
+
+    /**
+     * @param integer $chatRoomId
+     * @param string $chatRoomName
+     * @param string $ownerName
+     * @param array $membersIds
+     */
+    public function createChatRoomWithMembers(
+        $chatRoomId,
+        $chatRoomName,
+        $ownerName,
+        $membersIds
+    ) {
+    }
+
+    /**
+     * @param integer $chatRoomId
+     * @param string $chatRoomName
+     * @param string $ownerName
+     * @param array $membersIds
+     * @param string $serviceName
+     */
+    public function createChatRoomWithSpecificMembersAndService(
+        $chatRoomId,
+        $chatRoomName,
+        $ownerName,
+        $membersIds,
         $serviceName
     ) {
     }
